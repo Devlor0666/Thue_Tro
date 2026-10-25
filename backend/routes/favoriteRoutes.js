@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/favoriteControllers");
+const auth = require("../middleware/authMiddleware");
+const validate = require("../middleware/validate");
+const asyncHandler = require("../middleware/asyncHandler");
+const schema = require("../validations/resourceSchemas");
+router.use(auth);
+router.get("/", asyncHandler(controller.list));
+router.post("/:tinDangId", validate(schema.favoriteParamsSchema, "params"), asyncHandler(controller.add));
+router.delete("/:tinDangId", validate(schema.favoriteParamsSchema, "params"), asyncHandler(controller.remove));
+module.exports = router;

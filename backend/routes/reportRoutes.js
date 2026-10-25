@@ -1,0 +1,13 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/reportControllers");
+const auth = require("../middleware/authMiddleware");
+const admin = require("../middleware/adminMiddleware");
+const validate = require("../middleware/validate");
+const asyncHandler = require("../middleware/asyncHandler");
+const schema = require("../validations/resourceSchemas");
+const paramsSchema = require("../validations/validations");
+router.post("/", auth, validate(schema.reportSchema), asyncHandler(controller.create));
+router.get("/", auth, admin, asyncHandler(controller.list));
+router.patch("/:id/status", auth, admin, validate(paramsSchema.idSchema, "params"), validate(schema.reportStatusSchema), asyncHandler(controller.updateStatus));
+module.exports = router;

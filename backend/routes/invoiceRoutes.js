@@ -1,0 +1,13 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/invoiceControllers");
+const auth = require("../middleware/authMiddleware");
+const validate = require("../middleware/validate");
+const asyncHandler = require("../middleware/asyncHandler");
+const schema = require("../validations/resourceSchemas");
+const paramsSchema = require("../validations/validations");
+router.use(auth);
+router.get("/", asyncHandler(controller.list));
+router.post("/", validate(schema.invoiceCreateSchema), asyncHandler(controller.create));
+router.patch("/:id/status", validate(paramsSchema.idSchema, "params"), validate(schema.invoiceStatusSchema), asyncHandler(controller.updateStatus));
+module.exports = router;

@@ -1,0 +1,13 @@
+{
+  "name": "thue_tro_updated",
+  "version": "1.0.0",
+  "description": "Dự án gồm API Node.js/Express + MySQL và giao diện React/Vite. Phần giao diện được thiết kế bằng tiếng Việt, responsive và dùng các API trong backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

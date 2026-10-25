@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/contractControllers");
+const auth = require("../middleware/authMiddleware");
+const validate = require("../middleware/validate");
+const asyncHandler = require("../middleware/asyncHandler");
+const schema = require("../validations/resourceSchemas");
+router.use(auth);
+router.get("/", asyncHandler(controller.list));
+router.post("/", validate(schema.contractCreateSchema), asyncHandler(controller.create));
+router.patch("/:id/status", validate(schema.contractParamsSchema, "params"), validate(schema.contractStatusSchema), asyncHandler(controller.updateStatus));
+module.exports = router;

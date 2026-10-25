@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/messageControllers");
+const auth = require("../middleware/authMiddleware");
+const validate = require("../middleware/validate");
+const asyncHandler = require("../middleware/asyncHandler");
+const schema = require("../validations/resourceSchemas");
+router.use(auth);
+router.get("/", asyncHandler(controller.inbox));
+router.get("/:phongId", validate(schema.messageParamsSchema, "params"), asyncHandler(controller.list));
+router.post("/:phongId", validate(schema.messageParamsSchema, "params"), validate(schema.messageSchema), asyncHandler(controller.send));
+module.exports = router;

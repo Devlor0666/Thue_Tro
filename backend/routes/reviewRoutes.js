@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/reviewControllers");
+const auth = require("../middleware/authMiddleware");
+const validate = require("../middleware/validate");
+const asyncHandler = require("../middleware/asyncHandler");
+const schema = require("../validations/resourceSchemas");
+router.get("/room/:id", validate(schema.reviewParamsSchema, "params"), asyncHandler(controller.list));
+router.post("/room/:id", auth, validate(schema.reviewParamsSchema, "params"), validate(schema.reviewSchema), asyncHandler(controller.create));
+module.exports = router;
